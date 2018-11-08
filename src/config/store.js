@@ -2,11 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import appReducer from '../reducers/app'
-import filmReducer from '../reducers/film'
+import bookReducer from '../reducers/book'
 
 const reducers = combineReducers({
     app:appReducer,
-    films:filmReducer,
+    books:bookReducer,
 })
 
 const middeware = applyMiddleware(logger, thunk)

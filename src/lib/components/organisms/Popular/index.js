@@ -11,28 +11,28 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux'
-import { fetchFilms } from '../../../../actions/film'
+import { fetchbooks } from '../../../../actions/book'
 
 class Popular extends React.Component {
   componentDidMount(){
-    this.props.fetchFilms()
+    this.props.fetchbooks()
   }
   render(){
-    const { films, classes } = this.props
+    const { books, classes } = this.props
 
     return(
       <Section title="Buku-buku Terpopuler">
-            {films.length <= 0 ? <CircularProgress /> :
+            {books.length <= 0 ? <CircularProgress /> :
             <Grid container spacing={40}>
-            {films.map(film => (
-              <Grid item key={film} sm={6} md={4} lg={3}>
-                <Card className={classes.film}>
+            {books.map(book => (
+              <Grid item key={book} sm={6} md={4} lg={3}>
+                <Card className={classes.book}>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      {film.nama}
+                      {book.nama}
                     </Typography>
                     <Typography>
-                      {film.deskripsi}
+                      {book.deskripsi}
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -103,13 +103,13 @@ const styles = theme => ({
 
 const mapStateToProps = (state) => {
   return {
-    films : state.films.filmData
+    books : state.books.bookData
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFilms : () => dispatch(fetchFilms())
+    fetchbooks : () => dispatch(fetchbooks())
   }
 }
 

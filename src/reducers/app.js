@@ -1,5 +1,5 @@
 const initialState = {
-    copyRight: 'CopyRight 2018',
+    copyRight: 'CopyRight 2K18',
     pageTitle: 'Lapak Buku'
 }
 

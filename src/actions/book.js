@@ -1,16 +1,16 @@
 import axios from 'axios'
 
-export const fetchFilms = () => {
+export const fetchbooks = () => {
     let config = {
         headers: {'x-api-key': 'ocs0w4k08gsw40occgg8cc8080o848ggoo4w4csw'}
       };
     return (dispatch) => {
-        axios.get('https://api.itbook.store/1.0/books')
+        axios.get('https://api.itbook.store/1.0/search/mongodb')
             .then(respone => {
                 dispatch({
-                    type : 'ADD_FILMS',
+                    type : 'ADD_BOOKS',
                     payload : {
-                        films: respone.data.books
+                        books: respone.data.books
                     }
                 })
             })
