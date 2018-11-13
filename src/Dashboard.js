@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import myStore from './config/store'
 import {  BrowserRouter,  Route } from 'react-router-dom';
 import Home from './pages/Home'
+import Bookdetail from './pages/Bookdetail'
+import Books from './pages/Books'
 
 class Dashboard extends React.Component {
     render(){
@@ -16,6 +18,8 @@ class Dashboard extends React.Component {
                     <Route exact path="/" render={() => (
                         <Home/>
                     )} />
+                    <Route path="/bookdetail/:id" component={Bookdetail}/>
+                    <Route path="/books" component={Books}/>
                     <Footer />
                 </div>
                 </BrowserRouter>

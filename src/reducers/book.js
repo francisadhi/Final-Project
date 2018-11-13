@@ -1,5 +1,7 @@
 const initialState = {
     bookData: [],
+    pictureData: [],
+    bookDetail: [],
 }
 
 const bookReducer = (state = initialState, action) => {
@@ -8,6 +10,16 @@ const bookReducer = (state = initialState, action) => {
             return {
                 ...state,
                 bookData: action.payload.books
+            }
+        case 'ADD_PICTURES':
+            return {
+                ...state,
+                pictureData: action.payload.pictures
+            }
+        case 'BOOK_DETAIL':
+            return {
+                ...state,
+                bookDetail: action.payload.book
             }
         default : 
             return state

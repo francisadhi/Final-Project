@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Link } from 'react-router-dom'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
@@ -16,6 +17,7 @@ const styles = theme => ({
     root: {
       width: '100%',
       align: 'right',
+      disableUnderline: true,
     },
     grow: {
       flexGrow: 1,
@@ -129,7 +131,9 @@ class Navbar extends React.Component {
             <div className={classes.root}>
             <AppBar position="static" color="primary">
             <Toolbar>
+                <Link to={`/`}>
                 <Typography variant="title" color="inherit">{this.props.app.pageTitle}</Typography>
+                </Link>
                 {/* <Link to="/">
                     <Button color="inherit">Home</Button>
                 </Link>

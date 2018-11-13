@@ -1,18 +1,64 @@
 import axios from 'axios'
+import React from 'react'
 
 export const fetchbooks = () => {
-    let config = {
-        headers: {'x-api-key': 'ocs0w4k08gsw40occgg8cc8080o848ggoo4w4csw'}
-      };
     return (dispatch) => {
-        axios.get('https://api.itbook.store/1.0/search/mongodb')
-            .then(respone => {
+        axios.get('https://www.googleapis.com/books/v1/volumes?q=reactjs')
+            .then(response => {
+                // console.log(response.data.items)
                 dispatch({
                     type : 'ADD_BOOKS',
                     payload : {
-                        books: respone.data.books
+                        books: response.data.items
                     }
                 })
             })
+
     }
 }
+
+export const fecthbookpictures = () => {
+    let pictures
+    return (dispatch) => {
+        axios.get('https://www.googleapis.com/books/v1/volumes?q=reactjs')
+            // .then( items => {
+            //     return items.json();
+            // })
+            .then(response => {
+                pictures = response.data.items.map((pic) => {
+                    return(
+                        <div key={pic.items}>
+                            {pic.saleInfo.retailPrice}
+                        </div>
+                    )
+                })
+                dispatch({
+                    type : 'ADD_PICTURES',
+                    payload : {
+                        pictures: pictures
+                    }
+                })
+                console.log(pictures)
+
+                // let saleInfos = pictures.map((am)=>{
+                //     return(
+                //         <div key={pictures}></div>
+                //     )
+                // })
+            })
+    }
+}
+
+// export const fetchbook = () => {
+//     return (dispatch) => {
+//         axios.get(`https://www.googleapis.com/books/v1/volumes/${match.params.id}/`)       
+//             .then(response => {
+//                 dispatch({
+//                     type : 'BOOK_DETAIL',
+//                     payload : {
+//                         book: response.data.bookDetail
+//                     }
+//                 })
+//             })
+//     }
+// }
