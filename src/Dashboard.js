@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
                     <Route path="/detail/:id" component={Detail}/>
                     <Route path="/books" component={Books}/>
                     <Route path="/bibledetail/:id" component={BibleDetail}/>
-                    <Route path="/verses/:id" component={Verses}/>
+                    {/* <Route path="/bibledetail/verses/:id" component={Verses}/> */}
                     <Footer />
                 </div>
                 </BrowserRouter>

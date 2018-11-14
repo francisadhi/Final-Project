@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 const styles = {
   card: {
@@ -25,15 +26,35 @@ const styles = {
 };
 
 class Verses extends React.Component {
-    render(){
-  const { classes } = this.props;
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      bookData: [],
+      verses: this.props.bible,
+    }
+  }
+
+  componentDidMount() {
+    const { match } = this.props
+    axios.get(`https://api.scripture.api.bible/v1/bibles/${this.state.verses}/books/${this.state.verses}/chapters`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })
+      .then( ( response ) => {
+        this.setState({
+          bookData: response.data.data
+        })
+        console.log(this.state.verses)
+      })
+  }
+
+  render(){
+  const { classes, verses } = this.props;
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
+          Word of the Dayoooo
         </Typography>
         <Typography variant="h5" component="h2">
           be

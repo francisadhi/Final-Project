@@ -60,7 +60,7 @@ class ClippedDrawer extends React.Component {
         this.setState({
           bookData: response.data.data
         })
-        console.log(this.state.bookData)
+        console.log(this.state.bible)
       })
   }
 
@@ -99,8 +99,8 @@ class ClippedDrawer extends React.Component {
         <div className={classes.toolbar} />
         <List>
           {bookData.map((text, index) => (
-            <Link to={`/verses/${text.id}`} >
-            <ListItem button key={text.name}>
+            <Link to={`/bibledetail/verses/${text.id}`} >
+            <ListItem bible={bible} button key={text.name}>
               <Avatar style={{backgroundColor: 'red'}}>{text.name[0].toUpperCase()}
               </Avatar>
               <ListItemText primary={text.name} />
@@ -108,14 +108,11 @@ class ClippedDrawer extends React.Component {
             </Link>
           ))}
         </List>
-        <Route path={`verses/:id`} component={Verses} />
         <Divider />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Verses />
-        <Verses />
-        <Verses />
+        <Route path={`/bibledetail/verses/:id`} component={Verses} />
       </main>
     </div>
   )
