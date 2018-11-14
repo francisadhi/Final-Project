@@ -1,6 +1,6 @@
 const initialState = {
     copyRight: 'CopyRight 2K18',
-    pageTitle: 'Lapak Buku'
+    pageTitle: 'Baca Alkitab Yuk'
 }
 
 const appReducer = (state = initialState, action) => {

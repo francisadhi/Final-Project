@@ -1,51 +1,34 @@
 import axios from 'axios'
 import React from 'react'
 
-export const fetchbooks = () => {
-    return (dispatch) => {
-        axios.get('https://www.googleapis.com/books/v1/volumes?q=reactjs')
-            .then(response => {
-                // console.log(response.data.items)
-                dispatch({
-                    type : 'ADD_BOOKS',
-                    payload : {
-                        books: response.data.items
-                    }
-                })
+// export const fetchbooks = () => {
+//     return (dispatch) => {
+//         axios.get('https://www.googleapis.com/books/v1/volumes?q=reactjs')
+//             .then(response => {
+//                 // console.log(response.data.items)
+//                 dispatch({
+//                     type : 'ADD_BOOKS',
+//                     payload : {
+//                         books: response.data.items
+//                     }
+//                 })
+//             })
+
+//     }
+// }
+
+export const fetchbibles = () => {
+    return (dispatch) => { 
+        axios.get('https://api.scripture.api.bible/v1/bibles', { headers: { 'api-key': 'a646f4c12d612ad78f561a37530ea750' } })
+        .then(response => {
+            console.log(response.data.data)
+            dispatch({
+                type : 'ADD_BIBLES',
+                payload : {
+                    bibles: response.data.data
+                }
             })
-
-    }
-}
-
-export const fecthbookpictures = () => {
-    let pictures
-    return (dispatch) => {
-        axios.get('https://www.googleapis.com/books/v1/volumes?q=reactjs')
-            // .then( items => {
-            //     return items.json();
-            // })
-            .then(response => {
-                pictures = response.data.items.map((pic) => {
-                    return(
-                        <div key={pic.items}>
-                            {pic.saleInfo.retailPrice}
-                        </div>
-                    )
-                })
-                dispatch({
-                    type : 'ADD_PICTURES',
-                    payload : {
-                        pictures: pictures
-                    }
-                })
-                console.log(pictures)
-
-                // let saleInfos = pictures.map((am)=>{
-                //     return(
-                //         <div key={pictures}></div>
-                //     )
-                // })
-            })
+        })
     }
 }
 

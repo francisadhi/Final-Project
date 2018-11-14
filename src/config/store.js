@@ -6,7 +6,7 @@ import bookReducer from '../reducers/book'
 
 const reducers = combineReducers({
     app:appReducer,
-    books:bookReducer,
+    bibles:bookReducer,
 })
 
 const middeware = applyMiddleware(logger, thunk)

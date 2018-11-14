@@ -12,6 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import { Link } from 'react-router-dom'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const styles = theme => ({
     root: {
@@ -132,7 +133,7 @@ class Navbar extends React.Component {
             <AppBar position="static" color="primary">
             <Toolbar>
                 <Link to={`/`}>
-                <Typography variant="title" color="inherit">{this.props.app.pageTitle}</Typography>
+                <Typography variant="title" color="secondary">{this.props.app.pageTitle}</Typography>
                 </Link>
                 {/* <Link to="/">
                     <Button color="inherit">Home</Button>

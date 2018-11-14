@@ -2,6 +2,7 @@ const initialState = {
     bookData: [],
     pictureData: [],
     bookDetail: [],
+    bibles: [],
 }
 
 const bookReducer = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const bookReducer = (state = initialState, action) => {
             return {
                 ...state,
                 bookDetail: action.payload.book
+            }
+        case 'ADD_BIBLES':
+            return {
+                ...state,
+                bibles: action.payload.bibles
             }
         default : 
             return state

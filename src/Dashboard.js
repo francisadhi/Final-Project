@@ -7,6 +7,7 @@ import {  BrowserRouter,  Route } from 'react-router-dom';
 import Home from './pages/Home'
 import Bookdetail from './pages/Bookdetail'
 import Books from './pages/Books'
+import BibleDetail from './pages/BibleDetail';
 
 class Dashboard extends React.Component {
     render(){
@@ -20,6 +21,7 @@ class Dashboard extends React.Component {
                     )} />
                     <Route path="/bookdetail/:id" component={Bookdetail}/>
                     <Route path="/books" component={Books}/>
+                    <Route path="/bibledetail/:id" component={BibleDetail}/>
                     <Footer />
                 </div>
                 </BrowserRouter>

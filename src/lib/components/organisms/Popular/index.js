@@ -12,12 +12,12 @@ import Typography from '@material-ui/core/Typography';
 import { CircularProgress, CardMedia } from '@material-ui/core';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchbooks, fecthbookpictures } from '../../../../actions/book'
+import { fetchbooks, fetchbibles } from '../../../../actions/book'
 
 class Popular extends React.Component {
   componentDidMount(){
     this.props.fetchbooks()
-    this.props.fecthbookpictures()
+    this.props.fetchbibles()
   }
   render(){
     const { books, pictures, classes } = this.props
@@ -31,7 +31,8 @@ class Popular extends React.Component {
                 <Card className={classes.book}>
                   <CardMedia
                     className={classes.media}
-                    // image={book.volumeInfo.imageLinks.thumbnail}
+                    image="https://itbook.store/img/books/9780134843551.png"
+                    title="Paella dish"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
@@ -119,7 +120,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchbooks : () => dispatch(fetchbooks()),
-    fecthbookpictures : () => dispatch(fecthbookpictures())
+    fetchbibles : () => dispatch(fetchbibles())
 
   }
 }
