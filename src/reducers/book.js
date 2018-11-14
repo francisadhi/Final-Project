@@ -1,7 +1,7 @@
 const initialState = {
     bookData: [],
     pictureData: [],
-    bookDetail: [],
+    bibleDetail: [],
     bibles: [],
 }
 
@@ -17,10 +17,10 @@ const bookReducer = (state = initialState, action) => {
                 ...state,
                 pictureData: action.payload.pictures
             }
-        case 'BOOK_DETAIL':
+        case 'BIBLE_DETAIL':
             return {
                 ...state,
-                bookDetail: action.payload.book
+                bibleDetail: action.payload.biblekDetail
             }
         case 'ADD_BIBLES':
             return {

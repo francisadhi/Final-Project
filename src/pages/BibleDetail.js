@@ -9,55 +9,52 @@ import { Grid, Avatar, CircularProgress, CardMedia } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux'
 import Section from '../lib/elements/atoms/Section'
-import { fetchbook } from '../actions/book'
+import { fetchbible } from '../actions/book'
 import DetailDrawer from '../lib/components/Bibles/Detail'
+import Verses from './Verses'
+import { Provider } from 'react-redux'
+import myStore from '../config/store'
+import {  BrowserRouter,  Route } from 'react-router-dom';
 
 class BibleDetail extends React.Component {
     constructor(props) {
       super(props)
   
       this.state = {
-        userData: null
+        userData: null,
+        bible: [],
+        // id: '',
       }
     }
   
     componentDidMount() {
       const { match } = this.props
-      axios.get(`https://api.scripture.api.bible/v1/bibles/${match.params.id}`,{ headers: { 'api-key': 'a646f4c12d612ad78f561a37530ea750' } })
+      axios.get(`https://api.scripture.api.bible/v1/bibles/${match.params.id}`,{ headers: { 'api-key': this.props.app.token } })
         .then( ({ data }) => {
           this.setState({
-            userData: data.data
+            userData: data.data,
+            bible:data.data
           })
-          console.log(data)
+          // console.log(data)
         })
     }
     
     render() {
       const { userData } = this.state
-      const { classes } = this.props
+      const { classes, bible } = this.props
   
       return userData ? (
         <React.Fragment>
-                 {/* <Section title="Detail">
-                <Card>
-                  <CardMedia
-                    className={classes.media}
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {userData.name}
-                    </Typography>
-                    <Typography gutterBottom component="h4">
-                      {userData.name}
-                    </Typography>
-                    <Typography component="p">
-                      {userData.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                </Section> */}
-                <DetailDrawer />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                <DetailDrawer bible={userData}/>
             </React.Fragment>
+            // <Provider store={myStore}>
+            //     <BrowserRouter>
+            //     <div>
+            //         <DetailDrawer bible={userData}/>
+            //         <Route path="/verses/:id" component={Verses}/>
+            //     </div>
+            //     </BrowserRouter>
+            // </Provider>
       ) : <CircularProgress />
     }
   }
@@ -110,8 +107,20 @@ class BibleDetail extends React.Component {
     },
   });
 
+const mapStateToProps = (state) => {
+  return {
+      app:state.app, 
+  }
+}
+
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchbible: () => dispatch(fetchbible())
+// })
+
   BibleDetail.propTypes = {
     classes: PropTypes.object.isRequired,
   };
+
+BibleDetail = connect(mapStateToProps)(BibleDetail)
 
 export default withStyles(styles)(BibleDetail)

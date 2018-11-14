@@ -8,6 +8,8 @@ import Home from './pages/Home'
 import Bookdetail from './pages/Bookdetail'
 import Books from './pages/Books'
 import BibleDetail from './pages/BibleDetail';
+import Detail from './lib/components/Bibles/Detail';
+import Verses from './lib/components/Bibles/Versers'
 
 class Dashboard extends React.Component {
     render(){
@@ -20,8 +22,10 @@ class Dashboard extends React.Component {
                         <Home/>
                     )} />
                     <Route path="/bookdetail/:id" component={Bookdetail}/>
+                    <Route path="/detail/:id" component={Detail}/>
                     <Route path="/books" component={Books}/>
                     <Route path="/bibledetail/:id" component={BibleDetail}/>
+                    <Route path="/verses/:id" component={Verses}/>
                     <Footer />
                 </div>
                 </BrowserRouter>

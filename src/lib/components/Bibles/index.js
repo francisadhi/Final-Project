@@ -17,6 +17,12 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Slide from '@material-ui/core/Slide';
 
 
+import { Provider } from 'react-redux'
+import myStore from '../../../config/store'
+import {  BrowserRouter,  Route } from 'react-router-dom';
+import Detail from '../Bibles/Detail';
+
+
 function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
@@ -28,8 +34,8 @@ class BibleList extends React.Component {
 
         this.state = {
             open: false,
-            bible: null,
-            id: 0,
+            bible: [],
+            id: '2dd568eeff29fb3c-01',
         };
     }
 
@@ -38,7 +44,7 @@ class BibleList extends React.Component {
     }
 
     fetchbible = () => {
-        axios.get(`https://api.scripture.api.bible/v1/bibles/${this.state.id}`,{ headers: { 'api-key': 'a646f4c12d612ad78f561a37530ea750' } })
+        axios.get(`https://api.scripture.api.bible/v1/bibles/${this.state.id}`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })
             .then( ({ data }) => {
             this.setState({
                 bible: data.data
@@ -46,7 +52,6 @@ class BibleList extends React.Component {
             // console.log(data)
             })
     }
-
 
     handleClickOpen = (id) => {
         this.setState({ id: id})
@@ -62,25 +67,34 @@ class BibleList extends React.Component {
         const { bibles, bible } = this.props
         return(
             <div>
-            <Section title="Bibles">
-                {bibles.length <= 0 ? <CircularProgress />:
-                <List>
-                    {bibles.map((bible,index) => (
-                        // <Link to={`bibledetail/${bible.id}`} >
-                        // <ListItem key={bible.name} onClick={this.handleClickOpen(`${bible.id}`)} button>
-                        <ListItem key={bible.name} button>
-                            <Avatar style={{backgroundColor: 'red'}}>{bible.name[0].toUpperCase()}
-                            </Avatar>
-                            <ListItemText primary={bible.name} secondary={bible.description} />
-                        </ListItem>
-                        // </Link>
-                        
-                        
-                    ))
-                    }
-                </List>
-                }
-            </Section>
+
+            {/* <Provider store={myStore}>
+                <BrowserRouter> */}
+                <div>
+                    
+                    <Section title="Bibles">
+                        {/* <Button onClick={this.handleClickOpen(this.state.id)}>Open responsive dialog</Button> */}
+                        {bibles.length <= 0 ? <CircularProgress />:
+                        <List>
+                            {bibles.map((bible,index) => (
+                                <Link to={`bibledetail/${bible.id}`} >
+                                <ListItem key={bible.id} bible={bible} button>
+                                    <Avatar style={{backgroundColor: 'red'}}>{bible.name[0].toUpperCase()}
+                                    </Avatar>
+                                    <ListItemText primary={bible.name} secondary={bible.description} />
+                                </ListItem>
+                                </Link>
+                                
+                                
+                            ))
+                            }
+                        </List>
+                        }
+                    </Section>
+                    {/* <Route path="/detail/:id" component={Detail}/> */}
+                </div>
+                {/* </BrowserRouter>
+            </Provider> */}
             <Dialog
             open={this.state.open}
             TransitionComponent={Transition}
@@ -90,7 +104,7 @@ class BibleList extends React.Component {
             aria-describedby="alert-dialog-slide-description"
             >
             <DialogTitle id="alert-dialog-slide-title">
-                {bible.name}
+                {this.state.bible.name}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
@@ -115,7 +129,6 @@ class BibleList extends React.Component {
 const mapStateToProps = (state) => {
     return {
         bibles:state.bibles.bibles,
-        bible:this.bible
     }
 }
 
