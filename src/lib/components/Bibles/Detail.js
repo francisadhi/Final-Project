@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Avatar } from '@material-ui/core'
+import { Avatar, CircularProgress } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -54,7 +54,7 @@ class ClippedDrawer extends React.Component {
   const { classes, bibles, bible } = this.props
   // const { bookData } = this.state
 
-  return (
+  return bibles.books.length ? (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -81,6 +81,7 @@ class ClippedDrawer extends React.Component {
         }}
       >
         <div className={classes.toolbar} />
+        {/* {bibles.books.length <= 0 ? <CircularProgress />: */}
         <List>
           {bibles.books.map((bible, index) => (
             <Link to={`/bibledetail/verses/${bible.id}`}  style={{textDecoration: 'none'}} >
@@ -99,7 +100,7 @@ class ClippedDrawer extends React.Component {
         <Route path={`/bibledetail/verses/:id`} component={Verses} />
       </main>
     </div>
-  )
+  ) : <CircularProgress />
 }
 }
 

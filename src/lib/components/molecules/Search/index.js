@@ -5,6 +5,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux'
+import SimpleSelect from '../../../elements/atoms/SimpleSelect';
 
 const styles = theme => ({
     root: {
@@ -12,7 +19,7 @@ const styles = theme => ({
       align: 'right',
     },
     grow: {
-      flexGrow: 1,
+      // flexGrow: 1,
     },
     menuButton: {
       marginLeft: -12,
@@ -50,7 +57,7 @@ const styles = theme => ({
     },
     inputRoot: {
       color: 'inherit',
-      width: '100%',
+      // width: '100%',
     },
     inputInput: {
       paddingTop: theme.spacing.unit,
@@ -66,7 +73,7 @@ const styles = theme => ({
     sectionDesktop: {
       display: 'none',
       [theme.breakpoints.up('md')]: {
-        display: 'flex',
+        // display: 'flex',
       },
     },
     sectionMobile: {
@@ -75,36 +82,72 @@ const styles = theme => ({
         display: 'none',
       },
     },
+    button: {
+      display: 'block',
+      marginTop: theme.spacing.unit * 2,
+    },
+    formControl: {
+      margin: theme.spacing.unit,
+      minWidth: 120,
+    },
   });
 
 class PrimarySearchAppBar extends React.Component {
-      
+    
+    state = {
+      age: '',
+      open: false,
+    };
+
+    handleChange = event => {
+      this.setState({ [event.target.name]: event.target.value });
+    };
+
+    handleClose = () => {
+      this.setState({ open: false });
+    };
+
+    handleOpen = () => {
+      this.setState({ open: true });
+    };
       
     render(){
-    const { classes } = this.props;
+    const { classes, bibles } = this.props;
         return(
-            <div className={classes.root}>
-            <Toolbar>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+          <form >
+              <div className={classes.root}>
+              <Toolbar>
+              <SimpleSelect />
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
-            </Toolbar>
-            </div>
+              </Toolbar>
+              </div>
+          </form>
+            
         )   
     }
+}
+
+const mapStateToProps = state => {
+  return {
+    bibles: state.bibles, 
+  }
 }
 
 PrimarySearchAppBar.propTypes = {
     classes: PropTypes.object.isRequired,
   };
+
+PrimarySearchAppBar = connect(mapStateToProps)(PrimarySearchAppBar)
 
 export default withStyles(styles)(PrimarySearchAppBar);

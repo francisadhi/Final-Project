@@ -132,7 +132,7 @@ class Navbar extends React.Component {
             <div className={classes.root}>
             <AppBar position="static" color="primary">
             <Toolbar>
-                <Link to={`/`}  style={{textDecoration: 'none', width: 200}} >
+                <Link to={`/`}  style={{textDecoration: 'none', width: 300}} >
                 <Typography variant="title" color="secondary">{this.props.app.pageTitle}</Typography>
                 </Link>
             <AppSearchBar />
