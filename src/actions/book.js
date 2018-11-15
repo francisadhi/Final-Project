@@ -16,6 +16,21 @@ export const fetchbibles = () => {
     }
 }
 
+export const fetchbible = (id) => {
+    return (dispatch) => { 
+        axios.get(`https://api.scripture.api.bible/v1/bibles/${id}`, { headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })
+        .then(response => {
+            // console.log(response.data.data)
+            dispatch({
+                type : 'GET_BIBLE',
+                payload : {
+                    bibleDetail: response.data
+                }
+            })
+        })
+    }
+}
+
 export const fetchbiblebooks = (bibleid) => {
     return (dispatch) => {        
         
@@ -55,6 +70,21 @@ export const fetchbibleverses = (bibleId, id) => {
                     type : 'VERSES_LIST',
                     payload : {
                         verses: response.data.data
+                    }
+                })
+            })
+    }
+}
+
+export const fetchbibleverse = (bibleId, id) => {
+    return (dispatch) => {        
+        
+        axios.get(`https://api.scripture.api.bible/v1/bibles/${bibleId}/verses/${id}`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })      
+            .then(response => {
+                dispatch({
+                    type : 'VERSES_DETAIL',
+                    payload : {
+                        verse: response.data.data
                     }
                 })
             })

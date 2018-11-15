@@ -10,15 +10,10 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Verses from './Versers'
-import {  BrowserRouter,  Route, Switch } from 'react-router-dom';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import {  Route } from 'react-router-dom';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux'
@@ -53,39 +48,10 @@ const styles = theme => ({
 class ClippedDrawer extends React.Component {
   constructor(props) {
     super(props)
-
-    // this.state = {
-    //   bookData: [],
-    //   bible: this.props.bible,
-    //   // id:this.bible.data.id
-    // }
   }
 
-  // componentDidMount() {
-  //   const { match } = this.props
-  //   axios.get(`https://api.scripture.api.bible/v1/bibles/${this.props.bible.id}/books`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })
-  //     .then( ( response ) => {
-  //       this.setState({
-  //         bookData: response.data.data
-  //       })
-  //       // console.log(this.state.bible)
-  //       console.log(this.props.bibles.bibles)
-  //     })
-  // }
-
-  // RouteWithSubRoutes = (route) => {
-  //   return (
-  //     <Route
-  //       path={route.path}
-  //       render={props => (
-  //         // pass the sub-routes down to keep nesting
-  //         <route.component {...props} routes={route.routes} />
-  //       )}
-  //     />
-  //   )
-  // }
   render(){
-  const { classes, bibles } = this.props
+  const { classes, bibles, bible } = this.props
   // const { bookData } = this.state
 
   return (
@@ -94,7 +60,7 @@ class ClippedDrawer extends React.Component {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            {this.props.bibles.name}
+            {/* {bible.id} */}
           </Typography>
           <div className={classes.grow} />
           <Link to={`/`}  style={{textDecoration: 'none', width: 200, color: 'white'}} >

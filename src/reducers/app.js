@@ -1,6 +1,6 @@
 const initialState = {
     copyRight: 'CopyRight 2K18',
-    pageTitle: 'E-Alkitab',
+    pageTitle: 'Alkitab Elektronik',
     token: '6203c1c09761df55ea32eac2b4f2b09f',
 }
 

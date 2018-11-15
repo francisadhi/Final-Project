@@ -1,11 +1,12 @@
 const initialState = {
     bookData: [],
     pictureData: [],
-    bibleDetail: [],
     bibles: [],
+    bibleDetail: [],
     books: [],
     chapters: [],
     verses: [],
+    verse: [],
 }
 
 const bookReducer = (state = initialState, action) => {
@@ -20,10 +21,10 @@ const bookReducer = (state = initialState, action) => {
                 ...state,
                 pictureData: action.payload.pictures
             }
-        case 'BIBLE_DETAIL':
+        case 'GET_BIBLE':
             return {
                 ...state,
-                bibleDetail: action.payload.biblekDetail
+                bibleDetail: action.payload.bibleDetail
             }
         case 'ADD_BIBLES':
             return {
@@ -44,6 +45,11 @@ const bookReducer = (state = initialState, action) => {
         return {
             ...state,
             verses: action.payload.verses
+            }
+        case 'VERSES_DETAIL':
+        return {
+            ...state,
+            verse: action.payload.verse
             }
         default : 
             return state

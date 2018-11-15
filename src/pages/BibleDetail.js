@@ -17,44 +17,18 @@ import myStore from '../config/store'
 import {  BrowserRouter,  Route } from 'react-router-dom';
 
 class BibleDetail extends React.Component {
-    // constructor(props) {
-    //   super(props)
-  
-    //   this.state = {
-    //     userData: null,
-    //     bible: [],
-    //     // id: '',
-    //   }
-    // }
-  
-    // componentDidMount() {
-    //   const { match } = this.props
-    //   axios.get(`https://api.scripture.api.bible/v1/bibles/${match.params.id}`,{ headers: { 'api-key': this.props.app.token } })
-    //     .then( ({ data }) => {
-    //       this.setState({
-    //         userData: data.data,
-    //         bible:data.data
-    //       })
-    //       // console.log(data)
-    //     })
-    // }
+  constructor(props){
+    super(props)
     
+  }
+
     render() {
-      // const { userData } = this.state
-      const { app, classes, bibles } = this.props
+      const { app, classes, bible } = this.props
   
       return  (
         <React.Fragment>
-                <DetailDrawer />
-            </React.Fragment>
-            // <Provider store={myStore}>
-            //     <BrowserRouter>
-            //     <div>
-            //         <DetailDrawer bible={userData}/>
-            //         <Route path="/verses/:id" component={Verses}/>
-            //     </div>
-            //     </BrowserRouter>
-            // </Provider>
+                <DetailDrawer bible={bible}/>
+        </React.Fragment>
       ) 
     }
   }
