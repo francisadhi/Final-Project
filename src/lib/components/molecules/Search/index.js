@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux'
 import SimpleSelect from '../../../elements/atoms/SimpleSelect';
+import { fetchbibles } from '../../../../actions/book'
 
 const styles = theme => ({
     root: {
@@ -128,6 +129,7 @@ class PrimarySearchAppBar extends React.Component {
                     root: classes.inputRoot,
                     input: classes.inputInput,
                   }}
+                  onKeyPress={() => this.props.magicButton(`${this.state.age}`)}
                 />
               </div>
               </Toolbar>
@@ -144,10 +146,16 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+      magicButton: (bibleId, id) => dispatch(fetchbibles(bibleId, id))
+  }
+}
+
 PrimarySearchAppBar.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
-PrimarySearchAppBar = connect(mapStateToProps)(PrimarySearchAppBar)
+PrimarySearchAppBar = connect(mapStateToProps, mapDispatchToProps)(PrimarySearchAppBar)
 
 export default withStyles(styles)(PrimarySearchAppBar);

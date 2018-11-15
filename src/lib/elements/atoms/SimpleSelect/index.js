@@ -48,7 +48,7 @@ class SimpleSelect extends React.Component {
     const { classes, bibles } = this.props;
 
     return (
-      <form className={classes.root} autoComplete="off">
+      <div className={classes.root} autoComplete="off">
         
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel
@@ -75,7 +75,7 @@ class SimpleSelect extends React.Component {
             ))}
           </Select>
         </FormControl>
-      </form>
+      </div>
     );
   }
 }
