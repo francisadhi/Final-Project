@@ -16,23 +16,56 @@ export const fetchbibles = () => {
     }
 }
 
-export const fetchbible = () => {
-    // let token = {
-    //     type : 'ADD_TOKEN',
-    //     payload : {
-    //         token: response.data.bookDetail
-    //     }
-    // }
+export const fetchbiblebooks = (bibleid) => {
     return (dispatch) => {        
         
-        axios.get(`https://api.scripture.api.bible/v1/bibles/2dd568eeff29fb3c-01`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })      
+        axios.get(`https://api.scripture.api.bible/v1/bibles/${bibleid}/books`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })      
             .then(response => {
                 dispatch({
-                    type : 'BIBLE_DETAIL',
+                    type : 'BOOK_LIST',
                     payload : {
-                        book: response.data.bookDetail
+                        books: response.data.data
                     }
                 })
             })
     }
 }
+
+export const fetchbiblechapters = (bibleId, id) => {
+    return (dispatch) => {        
+        
+        axios.get(`https://api.scripture.api.bible/v1/bibles/${bibleId}/books/${id}/chapters`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })      
+            .then(response => {
+                dispatch({
+                    type : 'CHAPTER_LIST',
+                    payload : {
+                        chapters: response.data.data
+                    }
+                })
+            })
+    }
+}
+
+export const fetchbibleverses = (bibleId, id) => {
+    return (dispatch) => {        
+        
+        axios.get(`https://api.scripture.api.bible/v1/bibles/${bibleId}/chapters/${id}/verses`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })      
+            .then(response => {
+                dispatch({
+                    type : 'VERSES_LIST',
+                    payload : {
+                        verses: response.data.data
+                    }
+                })
+            })
+    }
+}
+
+export const changePageTitle = (newPageTitle) => {
+    return {
+      type: 'PAGE_TITLE_CHANGE',
+      payload: {
+        newPageTitle: newPageTitle
+      }
+    }
+  }

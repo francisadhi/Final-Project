@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import { connect } from 'react-redux'
 
 const styles = {
   card: {
@@ -26,42 +27,21 @@ const styles = {
 };
 
 class Verses extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      bookData: [],
-      verses: this.props.bible,
-    }
-  }
-
-  componentDidMount() {
-    const { match } = this.props
-    axios.get(`https://api.scripture.api.bible/v1/bibles/${this.state.verses}/books/${this.state.verses}/chapters`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })
-      .then( ( response ) => {
-        this.setState({
-          bookData: response.data.data
-        })
-        console.log(this.state.verses)
-      })
-  }
-
   render(){
-  const { classes, verses } = this.props;
+  const { classes, chapters } = this.props;
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
+    <div>
+      {chapters.chapters.map((bible, index) => (
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Dayoooo
+          {bible.chapterId}
+          {/* {props.books.books.data.bibleId}{props.books.books.data.bibleId}{props.books.books.data.bibleId}{props.books.books.data.bibleId}{props.books.books.data.bibleId}{props.books.books.data.bibleId}{props.books.books.data.bibleId}{props.books.books.data.bibleId}{props.books.books.data.bibleId} */}
         </Typography>
         <Typography variant="h5" component="h2">
-          be
-          {bull}
-          nev
-          {bull}o{bull}
-          lent
+          {bible.number}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           adjective
@@ -83,12 +63,23 @@ class Verses extends React.Component {
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
+
+    ))}
+    </div>
   )
-    }
+}
+}
+
+const mapStateToProps = (state) => {
+  return {
+    chapters: state.bibles, 
+  }
 }
 
 Verses.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+Verses = connect(mapStateToProps)(Verses)
 
 export default withStyles(styles)(Verses);

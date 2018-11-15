@@ -18,12 +18,20 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Verses from './Versers'
 import {  BrowserRouter,  Route, Switch } from 'react-router-dom';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExitToApp from '@material-ui/icons/ExitToApp';
+import IconButton from '@material-ui/core/IconButton';
+import { connect } from 'react-redux'
+import { fetchbiblechapters } from '../../../actions/book'
 
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     display: 'flex',
+  },
+  grow: {
+    flexGrow: 1,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -46,23 +54,24 @@ class ClippedDrawer extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      bookData: [],
-      bible: this.props.bible,
-      // id:this.bible.data.id
-    }
+    // this.state = {
+    //   bookData: [],
+    //   bible: this.props.bible,
+    //   // id:this.bible.data.id
+    // }
   }
 
-  componentDidMount() {
-    const { match } = this.props
-    axios.get(`https://api.scripture.api.bible/v1/bibles/${this.props.bible.id}/books`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })
-      .then( ( response ) => {
-        this.setState({
-          bookData: response.data.data
-        })
-        console.log(this.state.bible)
-      })
-  }
+  // componentDidMount() {
+  //   const { match } = this.props
+  //   axios.get(`https://api.scripture.api.bible/v1/bibles/${this.props.bible.id}/books`,{ headers: { 'api-key': '6203c1c09761df55ea32eac2b4f2b09f' } })
+  //     .then( ( response ) => {
+  //       this.setState({
+  //         bookData: response.data.data
+  //       })
+  //       // console.log(this.state.bible)
+  //       console.log(this.props.bibles.bibles)
+  //     })
+  // }
 
   // RouteWithSubRoutes = (route) => {
   //   return (
@@ -76,8 +85,8 @@ class ClippedDrawer extends React.Component {
   //   )
   // }
   render(){
-  const { classes, bible } = this.props
-  const { bookData } = this.state
+  const { classes, bibles } = this.props
+  // const { bookData } = this.state
 
   return (
     <div className={classes.root}>
@@ -85,8 +94,17 @@ class ClippedDrawer extends React.Component {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            {this.state.bible.name}
+            {this.props.bibles.name}
           </Typography>
+          <div className={classes.grow} />
+          <Link to={`/`}  style={{textDecoration: 'none', width: 200, color: 'white'}} >
+          <IconButton
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <ExitToApp />
+          </IconButton>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -98,12 +116,12 @@ class ClippedDrawer extends React.Component {
       >
         <div className={classes.toolbar} />
         <List>
-          {bookData.map((text, index) => (
-            <Link to={`/bibledetail/verses/${text.id}`} >
-            <ListItem bible={bible} button key={text.name}>
-              <Avatar style={{backgroundColor: 'red'}}>{text.name[0].toUpperCase()}
+          {bibles.books.map((bible, index) => (
+            <Link to={`/bibledetail/verses/${bible.id}`}  style={{textDecoration: 'none'}} >
+            <ListItem key={bible.name} onClick={() => this.props.magicButton(`${bible.bibleId}`,`${bible.id}`)} button>
+              <Avatar style={{backgroundColor: 'red'}}>{bible.name[0].toUpperCase()}
               </Avatar>
-              <ListItemText primary={text.name} />
+              <ListItemText primary={bible.name} />
             </ListItem>
             </Link>
           ))}
@@ -119,8 +137,22 @@ class ClippedDrawer extends React.Component {
 }
 }
 
+const mapStateToProps = state => {
+  return {
+    bibles: state.bibles, 
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      magicButton: (bibleId, id) => dispatch(fetchbiblechapters(bibleId, id))
+  }
+}
+
 ClippedDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+ClippedDrawer = connect(mapStateToProps, mapDispatchToProps)(ClippedDrawer)
 
 export default withStyles(styles)(ClippedDrawer);

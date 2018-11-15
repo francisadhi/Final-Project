@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Grid, Avatar, CircularProgress, CardMedia } from '@material-ui/core';
+import { Grid, Avatar, CircularProgress, CardMedia, List, ListItem, ListItemText } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux'
 import Section from '../lib/elements/atoms/Section'
@@ -17,35 +17,35 @@ import myStore from '../config/store'
 import {  BrowserRouter,  Route } from 'react-router-dom';
 
 class BibleDetail extends React.Component {
-    constructor(props) {
-      super(props)
+    // constructor(props) {
+    //   super(props)
   
-      this.state = {
-        userData: null,
-        bible: [],
-        // id: '',
-      }
-    }
+    //   this.state = {
+    //     userData: null,
+    //     bible: [],
+    //     // id: '',
+    //   }
+    // }
   
-    componentDidMount() {
-      const { match } = this.props
-      axios.get(`https://api.scripture.api.bible/v1/bibles/${match.params.id}`,{ headers: { 'api-key': this.props.app.token } })
-        .then( ({ data }) => {
-          this.setState({
-            userData: data.data,
-            bible:data.data
-          })
-          // console.log(data)
-        })
-    }
+    // componentDidMount() {
+    //   const { match } = this.props
+    //   axios.get(`https://api.scripture.api.bible/v1/bibles/${match.params.id}`,{ headers: { 'api-key': this.props.app.token } })
+    //     .then( ({ data }) => {
+    //       this.setState({
+    //         userData: data.data,
+    //         bible:data.data
+    //       })
+    //       // console.log(data)
+    //     })
+    // }
     
     render() {
-      const { userData } = this.state
-      const { classes, bible } = this.props
+      // const { userData } = this.state
+      const { app, classes, bibles } = this.props
   
-      return userData ? (
+      return  (
         <React.Fragment>
-                <DetailDrawer bible={userData}/>
+                <DetailDrawer />
             </React.Fragment>
             // <Provider store={myStore}>
             //     <BrowserRouter>
@@ -55,7 +55,7 @@ class BibleDetail extends React.Component {
             //     </div>
             //     </BrowserRouter>
             // </Provider>
-      ) : <CircularProgress />
+      ) 
     }
   }
 
@@ -110,6 +110,7 @@ class BibleDetail extends React.Component {
 const mapStateToProps = (state) => {
   return {
       app:state.app, 
+      bibles: state.bibles, 
   }
 }
 

@@ -21,6 +21,7 @@ import { Provider } from 'react-redux'
 import myStore from '../../../config/store'
 import {  BrowserRouter,  Route } from 'react-router-dom';
 import Detail from '../Bibles/Detail';
+import { fetchbiblebooks } from '../../../actions/book'
 
 
 function Transition(props) {
@@ -77,8 +78,8 @@ class BibleList extends React.Component {
                         {bibles.length <= 0 ? <CircularProgress />:
                         <List>
                             {bibles.map((bible,index) => (
-                                <Link to={`bibledetail/${bible.id}`} >
-                                <ListItem key={bible.id} bible={bible} button>
+                                <Link to={`bibledetail/${bible.id}`} style={{textDecoration: 'none'}}>
+                                <ListItem key={bible.id} bible={bible} onClick={() => this.props.magicButton(`${bible.id}`)} button>
                                     <Avatar style={{backgroundColor: 'red'}}>{bible.name[0].toUpperCase()}
                                     </Avatar>
                                     <ListItemText primary={bible.name} secondary={bible.description} />
@@ -132,8 +133,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    fetchbibles: () => dispatch(fetchbibles())
+const mapDispatchToProps = (dispatch) => ({
+    fetchbibles: () => dispatch(fetchbibles()),
+    magicButton: (bibleId) => dispatch(fetchbiblebooks(bibleId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(BibleList)
